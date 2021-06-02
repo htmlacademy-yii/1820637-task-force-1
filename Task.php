@@ -38,6 +38,7 @@ public function __construct($ownerId, $workerId, $status)
 
 public function getStatus()
 {
+    echo "<b>Текущий статус:</b><br>";
     return $this->status;
 }
 
@@ -45,28 +46,28 @@ public function getStatus()
 
 public function getListStatus()
 {
-    $status = array("STATUS_NEW" => 'Новое',
-    "STATUS_CANCEL" => 'Отменено',
-    "STATUS_WORK" => 'В работе',
-    "STATUS_DEAD" => 'Провалено',
-    "STATUS_DONE" => 'Выполнено');
+    $status = array("STATUS_NEW" => self::STATUS_NEW,
+    "STATUS_CANCEL" => self::STATUS_CANCEL,
+    "STATUS_WORK" => self::STATUS_WORK,
+    "STATUS_DEAD" => self::STATUS_DEAD,
+    "STATUS_DONE" => self::STATUS_DONE);
 
-    $action = array("ACTION_NEW" => 'Добавить',
-    "ACTION_CANCEL" => 'Отменить',
-    "ACTION_WORK" => 'Принять',
-    "ACTION_DEAD" => 'Заявить о проблеме',
-    "ACTION_DONE" => 'Завершить',
-    "ACTION_APPLY" => 'Откликнуться',
-    "ACTION_STRIKE" => 'Отказаться');
+    $action = array("ACTION_NEW" => self::ACTION_NEW,
+    "ACTION_CANCEL" => self::ACTION_CANCEL,
+    "ACTION_WORK" => self::ACTION_WORK,
+    "ACTION_DEAD" => self::ACTION_DEAD,
+    "ACTION_DONE" => self::ACTION_DONE,
+    "ACTION_APPLY" => self::ACTION_APPLY,
+    "ACTION_STRIKE" => self::ACTION_STRIKE);
 
-    echo "Статусы:\n";
+    echo "<b>Список статусов:</b><br>";
     foreach($status as $key => $value) {
-        echo $key."\t=>\t".$value."\n";
+        echo $key."\t=>\t".$value."<br>";
     }
 
-    echo "Действия:\n";
+    echo "<b>Список действий:</b><br>";
     foreach($action as $key => $value) {
-        echo $key."\t=>\t".$value."\n";
+        echo $key."\t=>\t".$value."<br>";
     }
 }
 
@@ -74,17 +75,17 @@ public function getListStatus()
 
 public function getNextStatus()
 {
-    $actionToStatus = array("ACTION_NEW" => 'STATUS_NEW',
-    "ACTION_CANCEL" => 'STATUS_CANCEL',
-    "ACTION_WORK" => 'STATUS_WORK',
-    "ACTION_DEAD" => 'STATUS_DEAD',
-    "ACTION_DONE" => 'STATUS_DONE',
-    "ACTION_APPLY" => 'STATUS_NEW',
-    "ACTION_STRIKE" => 'STATUS_DEAD');
+    $actionToStatus = array(self::ACTION_NEW => self::STATUS_NEW,
+    self::ACTION_CANCEL => self::STATUS_CANCEL,
+    self::ACTION_WORK => self::STATUS_WORK,
+    self::ACTION_DEAD => self::STATUS_DEAD,
+    self::ACTION_DONE => self::STATUS_DONE,
+    self::ACTION_APPLY => self::STATUS_NEW,
+    self::ACTION_STRIKE => self::STATUS_DEAD);
 
-    echo "Статус после действия:\n";
+    echo "<b>Действие => Статус:</b><br>";
     foreach($actionToStatus as $key => $value) {
-        echo $key."\t=>\t".$value."\n";
+        echo $key."\t=>\t".$value."<br>";
     }
 }
 
@@ -92,17 +93,17 @@ public function getNextStatus()
 
 public function getActionInStatus()
 {
-    if ($this->status == 'STATUS_NEW') {
-        $actionInStatus = array('ACTION_CANCEL', 'ACTION_APPLY', 'ACTION_WORK');
-    } elseif ($this->status == 'STATUS_WORK') {
-        $actionInStatus = array ('ACTION_DONE', 'ACTION_APPLY', 'ACTION_STRIKE');
+    if ($this->status == self::STATUS_NEW) {
+        $actionInStatus = array(self::ACTION_CANCEL, self::ACTION_APPLY, self::ACTION_WORK);
+    } elseif ($this->status == self::STATUS_WORK) {
+        $actionInStatus = array (self::ACTION_DONE, self::ACTION_APPLY, self::ACTION_STRIKE);
     } else $actionInStatus = array ('Нет возможных действий!');
 
-    echo "Действия в текущем статусе:\n";
+    echo "<b>Действия в текущем статусе:</b><br>";
     foreach ($actionInStatus as $action) {
-        echo $action."\n";
+        echo $action."<br>";
     }
 }
 }
 
-php>
+?>
