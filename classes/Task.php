@@ -1,5 +1,7 @@
 <?php
 
+// Класс
+
 class Task
 {
 
