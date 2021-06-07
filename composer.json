@@ -1,0 +1,15 @@
+{
+    "name": "arsenal/1820637-task-force-1",
+    "autoload": {
+        "psr-4": {
+            "academy\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "dzanni",
+            "email": "dzanni@gmail.com"
+        }
+    ],
+    "require": {}
+}
