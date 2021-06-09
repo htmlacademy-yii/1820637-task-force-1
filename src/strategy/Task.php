@@ -1,6 +1,6 @@
 <?php
 
-// Класс
+namespace academy\strategy;
 
 class Task
 {
