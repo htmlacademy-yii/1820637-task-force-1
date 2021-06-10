@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-06-10T13:20:38.475Z" agent="5.0 (Macintosh)" etag="k7OdW-z0Cv3V9RhcczJW" version="14.7.7" type="github">
+<mxfile host="app.diagrams.net" modified="2021-06-10T13:22:47.558Z" agent="5.0 (Macintosh)" etag="4HOphvD6J8BD2TmAjg4c" version="14.7.7" type="github">
   <diagram name="Page-1" id="c7488fd3-1785-93aa-aadb-54a6760d102a">
     <mxGraphModel dx="730" dy="316" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
       <root>
@@ -304,20 +304,20 @@
         </mxCell>
         <mxCell id="h2x-6CI9Ihy8LsGusNlG-127" value="" style="endArrow=classic;html=1;dashed=1;fontSize=12;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="370" y="246" as="sourcePoint" />
-            <mxPoint x="370" y="70" as="targetPoint" />
+            <mxPoint x="370" y="236" as="sourcePoint" />
+            <mxPoint x="370" y="60" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="h2x-6CI9Ihy8LsGusNlG-128" value="" style="endArrow=classic;html=1;dashed=1;fontSize=12;exitX=0.75;exitY=0;exitDx=0;exitDy=0;" parent="1" source="h2x-6CI9Ihy8LsGusNlG-99" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="380" y="256" as="sourcePoint" />
-            <mxPoint x="480" y="70" as="targetPoint" />
+            <mxPoint x="480" y="60" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="h2x-6CI9Ihy8LsGusNlG-136" value="" style="endArrow=classic;html=1;dashed=1;fontSize=12;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" edge="1">
+        <mxCell id="h2x-6CI9Ihy8LsGusNlG-136" value="" style="endArrow=classic;html=1;dashed=1;fontSize=12;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="755" y="70" as="sourcePoint" />
-            <mxPoint x="755" y="163.5" as="targetPoint" />
+            <mxPoint x="755" y="60" as="sourcePoint" />
+            <mxPoint x="755" y="150" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="h2x-6CI9Ihy8LsGusNlG-141" value="* Для упрощения схемы далее процедура валидации просто обозначается розовой стрелкой" style="text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Verdana;fontSize=12;" parent="1" vertex="1">
@@ -331,24 +331,27 @@
         </mxCell>
         <mxCell id="h2x-6CI9Ihy8LsGusNlG-176" value="" style="endArrow=classic;html=1;dashed=1;fontSize=12;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="1355" y="70" as="sourcePoint" />
+            <mxPoint x="1355" y="60" as="sourcePoint" />
             <mxPoint x="1355" y="110" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="dRT6t8CAFaWPUMTb3TAx-4" value="" style="endArrow=classic;html=1;dashed=1;fontSize=12;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="1435" y="70" as="sourcePoint" />
+            <mxPoint x="1435" y="60" as="sourcePoint" />
             <mxPoint x="1435" y="147.81" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="dRT6t8CAFaWPUMTb3TAx-8" value="" style="endArrow=classic;html=1;dashed=1;fontSize=12;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="1570" y="150" as="sourcePoint" />
-            <mxPoint x="1570" y="70" as="targetPoint" />
+            <mxPoint x="1570" y="60" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="dRT6t8CAFaWPUMTb3TAx-17" value="" style="points=[[0.145,0.145,0],[0.5,0,0],[0.855,0.145,0],[1,0.5,0],[0.855,0.855,0],[0.5,1,0],[0.145,0.855,0],[0,0.5,0]];shape=mxgraph.bpmn.event;html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;align=center;perimeter=ellipsePerimeter;outlineConnect=0;aspect=fixed;outline=catching;symbol=message;" vertex="1" parent="1">
           <mxGeometry x="1170" y="150" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dRT6t8CAFaWPUMTb3TAx-23" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="h2x-6CI9Ihy8LsGusNlG-116" target="h2x-6CI9Ihy8LsGusNlG-141">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
