@@ -1,0 +1,74 @@
+КЛАССЫ
+
+Думаю, что, как минимум, нужны такие классы:
+
+Task ($status, $ownerId, $workerId = null)
+- хранит и обрабатывает статус задания
+
+User ($userId, $userCategory)   
+- хранит и обрабатывает статус пользователей
+
+Form () либо класс для каждой формы
+- вызывает формы
+
+Validator ()
+- валидирует введенные данные
+
+Email ()
+- отправляет уведомления пользователям
+
+Chat ()
+- отправляет сообщения во внутреннем чате
+
+
+БАЗА ДАННЫХ
+
+// Из описания задания 3.14. "Повелитель данных" я вижу, что таблиц всего семь:
+список категорий, городов, откликов, пользователей, профилей, заданий, отзывов. Я, прежде чем туда посмотреть, угадал все нужные таблицы, кроме "таблицы профилей" (я ее данные сунул в таблицу пользователей). Кроме того, одну таблицу я спроектировал лишнюю - "Таблица сообщений внутренней переписки". Во всех таблицах я предусмотрел id, но в тестовых таблицах из папки data их нет.
+
+В файл sql я поместил не свои таблицы, а таблицы по аналогии с заданием "Повелитель данных".
+
+1) 2) Таблица пользователей и Таблица профилей
+
+//Я написал так, в одной таблице:
+users (user_id, email, name, password, dt_add,
+   adress, bd, about, phone, skype, telegram,
+   download_files, rate, icon, categories [], favorites [])
+
+// В папке data так:
+
+users (email,name,password,dt_add)
+profiles (address,bd,about,phone,skype)
+
+Т.е. я зашил лишнее: id, download_files (ссылка на загруженные файлы), rate (текущий рейтинг), icon, categories (выбранные категории), favorites (Избранные юзеры). dt_add, очевидно, - дата регистрации, но где мы храним тогда дату последней активности?
+
+3) Таблица заданий 
+
+// Я написал так:
+tasks (task_id, owner_id, worker_id, status, dt_add, category_id, short_description, full_description, expire, city, budget, lat, long, download_files)
+
+//В папке data так:
+tasks (dt_add,category_id,description,expire,name,address,budget,lat,long)
+
+Т.е. я зашил лишнее: task_id, owner_id, worker_id, status, download_files (ссылка на загруженные файлы), две колонки description вместо одной, city вместо address
+
+
+4) Таблица категорий
+categories (category, icon)
+
+5) Таблица городов
+cities (city, lat, long)
+
+// Две таблицы ниже в папке data имеют параметры (dt_add, rate, description), хотя по смыслу они должны иметь разные колонки. В  папке data в них нет id, но как без id они привяжутся к исполнителям и заданиям? Я планировал так:
+
+6) Таблица откликов 
+replies (reply_id, worker_id, task_id, description)
+
+7) Таблица отзывов
+opinions (opinion_id, owner_id, worker_id, task_id, description, rate)
+
+// Эту таблицу я придумал, но ее не надо:
+
+Таблица сообщений внутренней переписки
+chat (chatId, senderId, receiverId, description)
+
