@@ -28,6 +28,15 @@ CREATE TABLE IF NOT EXISTS `1820637-task-force-1`.`users` (
   `date_add` DATE NOT NULL COMMENT 'Таблица пользователей',
   `name` VARCHAR(50) NOT NULL,
   `password` VARCHAR(20) NOT NULL,
+  `e-mail` VARCHAR(40) NOT NULL,
+   PRIMARY KEY (`user_id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `1820637-task-force-1`.`profiles`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `1820637-task-force-1`.`profiles` (
   `avatar_file` VARCHAR(20) NULL,
   `download_files` VARCHAR(50) NULL,
   `date_of_birth` DATETIME NOT NULL,
@@ -44,8 +53,7 @@ CREATE TABLE IF NOT EXISTS `1820637-task-force-1`.`users` (
   `box_hide_profile` TINYINT(1) NOT NULL,
   `box_message` TINYINT(1) NOT NULL,
   `box_actions` TINYINT(1) NOT NULL,
-  `box_reply` TINYINT(1) NOT NULL,
-  PRIMARY KEY (`user_id`))
+  `box_reply` TINYINT(1) NOT NULL)
 ENGINE = InnoDB;
 
 
