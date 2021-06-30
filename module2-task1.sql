@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `1820637_task_force_1`.`task_files` (
   `task_id` INT NOT NULL,
   `file_id` INT NOT NULL,
   INDEX `task_ind` (`task_id`),
-  FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE,
+  FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`) ON DELETE CASCADE,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
