@@ -104,7 +104,7 @@ ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `1820637_task_force_1`.`chat` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `sender_id` INT NOT NULL COMMENT 'Таблица чата',
+  `sender_id` INT NOT NULL,
   `receiver_id` INT NOT NULL,
   `message` VARCHAR(200) NOT NULL,
   `read` TINYINT(1) NOT NULL,
@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `1820637_task_force_1`.`user_category` (
         REFERENCES `users` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_category` FOREIGN KEY (`category_id`)
         REFERENCES `categories` (`id`) ON DELETE CASCADE,
-PRIMARY KEY ('id'),
+PRIMARY KEY (`id`),
 UNIQUE KEY `relation_row_unique` (`user_id`, `category_id`)
 )
 ENGINE = InnoDB;
