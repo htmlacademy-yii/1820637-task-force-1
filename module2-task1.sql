@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `1820637_task_force_1`.`profiles` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `file_id` VARCHAR(20) NULL,
-  `download_files_url` VARCHAR(50) NULL,
+  `download_files` VARCHAR(50) NULL,
   `birthday` DATETIME NOT NULL,
   `address` VARCHAR(100) NULL,
   `city_id` INT NOT NULL,
