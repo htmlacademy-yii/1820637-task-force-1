@@ -17,8 +17,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `1820637_task_force_1`.`profiles` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
-  `file_id` VARCHAR(20) NULL,
-  `download_files` VARCHAR(50) NULL,
+  `avatar_file_id` VARCHAR(20) NULL,
   `birthday` DATETIME NOT NULL,
   `address` VARCHAR(100) NULL,
   `city_id` INT NOT NULL,
@@ -68,16 +67,25 @@ CREATE TABLE IF NOT EXISTS `1820637_task_force_1`.`task_files` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
+CREATE TABLE IF NOT EXISTS `1820637_task_force_1`.`profile_files` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `profile_id` INT NOT NULL,
+  `file_id` INT NOT NULL,
+  INDEX `profile_ind` (`profile_id`),
+  FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`id`) ON DELETE CASCADE,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
 CREATE TABLE IF NOT EXISTS `1820637_task_force_1`.`categories` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `category` VARCHAR(20) NOT NULL,
+  `name` VARCHAR(20) NOT NULL,
   `icon_url` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `1820637_task_force_1`.`cities` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `city` VARCHAR(20) NOT NULL,
+  `name` VARCHAR(20) NOT NULL,
   `point` POINT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -88,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `1820637_task_force_1`.`replies` (
   `user_id` INT NOT NULL,
   `task_id` INT NOT NULL,
   `description` VARCHAR(100) NOT NULL,
-  `budjet` INT NULL,
+  `budget` INT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -97,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `1820637_task_force_1`.`opinions` (
   `creation_time` DATETIME NOT NULL,
   `user_id` INT NOT NULL,
   `task_id` INT NOT NULL,
-  `rate` INT NULL,
+  `rate` INT NOT NULL,
   `description` VARCHAR(100) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
