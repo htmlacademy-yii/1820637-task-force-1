@@ -4,20 +4,15 @@ namespace academy\strategy;
 
 class ActionApply extends AbstractAction
 {
-    public function getActionNick()
-    {
-        return 'apply';
-    }
+    protected $actionNick = 'apply';
+    protected $actionName = 'завершить с проблемами';
 
-    public function getActionName()
+    public function verifyAccess()
     {
-        return 'откликнуться';
-    }
-
-    public function validateId($userId, $ownerId, $workerId)
-    {
-        if ($userId == $workerId) return true;
-        else return false;
+        if ($this->userId === $this->workerId)
+        {
+            return true;
+        }
     }
 }
 

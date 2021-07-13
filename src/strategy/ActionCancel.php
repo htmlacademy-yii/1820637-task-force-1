@@ -4,20 +4,15 @@ namespace academy\strategy;
 
 class ActionCancel extends AbstractAction
 {
-    public function getActionNick()
-    {
-        return 'cancel';
-    }
+    protected $actionNick = 'cancel';
+    protected $actionName = 'отменить';
 
-    public function getActionName()
+    public function verifyAccess()
     {
-        return 'отменить';
-    }
-
-    public function validateId($userId, $ownerId, $workerId)
-    {
-        if ($userId == $ownerId) return true;
-        else return false;
+        if ($this->userId === $this->ownerId)
+        {
+            return true;
+        }
     }
 }
 

@@ -4,22 +4,20 @@ namespace academy\strategy;
 
 abstract class AbstractAction
 {
-    private $userId;
-    private $ownerId;
-    private $workerId;
+    protected $actionNick;
+    protected $actionName;
 
-    public function __construct($userId, $ownerId, $workerId)
+    public function getActionNick()
     {
-        $this->userId = $userId;
-        $this->ownerId = $ownerId;
-        $this->workerId = $workerId;
+        return $this->actionNick;
     }
 
-    abstract public function getActionNick();
+    public function getActionName()
+    {
+        return $this->actionName;
+    }
 
-    abstract public function getActionName();
-
-    abstract public function validateId($userId, $ownerId, $workerId);
+    abstract public function verifyAccess();
 }
 
 ?>

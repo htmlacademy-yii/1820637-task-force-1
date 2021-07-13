@@ -4,7 +4,7 @@
 
 require_once 'vendor/autoload.php';
 
-$case = new academy\strategy\Task ('new', 1);
+$case = new academy\strategy\Task ('new', 0, 0, 1); // $status, $userId, $ownerId, $workerId
 
 // вывод текущего статуса
 echo $case->getStatus()."<br><br>";
@@ -18,6 +18,5 @@ echo $case->getNextStatus('finish')."<br><br>";
 
 // список действий в данном статусе - массив
 print_r($case->getActionInStatus());
-
 
 ?>

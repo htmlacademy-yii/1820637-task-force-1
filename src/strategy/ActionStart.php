@@ -4,20 +4,15 @@ namespace academy\strategy;
 
 class ActionStart extends AbstractAction
 {
-    public function getActionNick()
-    {
-        return 'start';
-    }
+    protected $actionNick = 'start';
+    protected $actionName = 'создать';
 
-    public function getActionName()
+public function verifyAccess()
     {
-        return 'создать';
-    }
-
-    public function validateId($userId, $ownerId, $workerId)
-    {
-        if ($userId == $workerId) return true;
-        else return false;
+        if ($this->userId === $this->ownerId)
+        {
+            return true;
+        }
     }
 }
 

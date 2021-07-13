@@ -15,19 +15,12 @@ class Task
 
     // Свойства
 
-    private $ownerId;
-    private $workedId;
-    private $status;
-    private $userId;
-    private $actionStart;
-    private $actionCancel;
-    private $actionAccept;
-    private $actionAppeal;
-    private $actionFinish;
-    private $actionApply;
-    private $actionReject;
+    public $ownerId;
+    public $workedId;
+    public $userId;
+    public $status;
 
-      // Конструктор
+    // Конструктор
 
     public function __construct($status, $userId, $ownerId, $workerId)
     {
@@ -72,7 +65,7 @@ class Task
 
     // Правила перехода
 
-    public function getNextStatus($action)
+  public function getNextStatus($action)
     {
         switch ($action)
         {
@@ -103,30 +96,42 @@ class Task
 
     // Возможные действия в статусе сообразно роли - реализовано массивом
 
-    public function getActionInStatus()
+  public function getActionInStatus()
     {
         switch ($this->status)
         {
             case self::STATUS_NEW:
                 $actions = [];
-                if ($this->actionCancel->validateId($this->userId, $this->ownerId, $this->workerId) == true)
+                if ($this->actionCancel->verifyAccess())
+                {
                     $actions[] = $this->actionCancel->getActionNick();
-                if ($this->actionApply->validateId($this->userId, $this->ownerId, $this->workerId) == true)
+                }
+                if ($this->actionApply->verifyAccess())
+                {
                     $actions[] = $this->actionApply->getActionNick();
-                if ($this->actionAccept->validateId($this->userId, $this->ownerId, $this->workerId) == true)
+                }
+                if ($this->actionAccept->verifyAccess())
+                {
                     $actions[] = $this->actionAccept->getActionNick();
+                }
                 break;
           case self::STATUS_CANCEL:
                 $actions = [];
                 break;
             case self::STATUS_WORK:
                 $actions = [];
-                if ($this->actionFinish->validateId($this->userId, $this->ownerId, $this->workerId) == true)
+                if ($this->actionFinish->verifyAccess())
+                {
                     $actions[] = $this->actionFinish->getActionNick();
-                if ($this->actionAppeal->validateId($this->userId, $this->ownerId, $this->workerId) == true)
+                }
+                if ($this->actionAppeal->verifyAccess())
+                {
                     $actions[] = $this->actionAppeal->getActionNick();
-                if ($this->actionReject->validateId($this->userId, $this->ownerId, $this->workerId) == true)    
+                }
+                if ($this->actionReject->verifyAccess())
+                {
                     $actions[] = $this->actionReject->getActionNick();
+                }
                 break;
             case self::STATUS_FAILED:
                 $actions = [];
