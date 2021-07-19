@@ -15,10 +15,10 @@ class Task
 
     // Свойства
 
-    private $ownerId;
-    private $workedId;
-    private $userId;
-    private $status;
+    public $ownerId;
+    public $workedId;
+    public $userId;
+    public $status;
 
     // Конструктор
 
