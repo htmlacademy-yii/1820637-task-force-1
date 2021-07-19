@@ -15,10 +15,10 @@ class Task
 
     // Свойства
 
-    public $ownerId;
-    public $workedId;
-    public $userId;
-    public $status;
+    private $ownerId;
+    private $workedId;
+    private $userId;
+    private $status;
 
     // Конструктор
 
@@ -28,13 +28,13 @@ class Task
         $this->userId = $userId;
         $this->ownerId = $ownerId;
         $this->workerId = $workerId;
-        $this->actionStart = new ActionStart;
-        $this->actionCancel = new ActionCancel;
-        $this->actionAccept = new ActionAccept;
-        $this->actionAppeal = new ActionAppeal;
-        $this->actionFinish = new ActionFinish;
-        $this->actionApply = new ActionApply;
-        $this->actionReject = new ActionReject;
+        $this->actionStart = new ActionStart($this);
+        $this->actionCancel = new ActionCancel($this);
+        $this->actionAccept = new ActionAccept($this);
+        $this->actionAppeal = new ActionAppeal($this);
+        $this->actionFinish = new ActionFinish($this);
+        $this->actionApply = new ActionApply($this);
+        $this->actionReject = new ActionReject($this);
     }
 
     // Функция возврата статуса

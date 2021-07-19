@@ -6,10 +6,16 @@ class ActionAppeal extends AbstractAction
 {
     protected $actionNick = 'appeal';
     protected $actionName = 'завершить с проблемами';
+    private $task;
 
-  public function verifyAccess()
+    public function __construct($task)
     {
-        if ($this->userId === $this->ownerId)
+        $this->task = $task;
+    }
+
+    public function verifyAccess()
+    {
+        if ($this->task->userId === $this->task->ownerId)
         {
             return true;
         }
