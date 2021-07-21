@@ -13,33 +13,28 @@ class Task
     const STATUS_FAILED = 'failed';
     const STATUS_DONE = 'done';
 
-    // Действия заказчика
-
-    const ACTION_START = 'start';
-    const ACTION_CANCEL = 'cancel';
-    const ACTION_ACCEPT = 'accept';
-    const ACTION_APPEAL = 'appeal';
-    const ACTION_FINISH = 'finish';
-
-    // Действия исполнителя
-
-    const ACTION_APPLY = 'apply';
-    const ACTION_REJECT = 'reject';
-
     // Свойства
 
-    private $ownerId;
-    private $workedId;
-    private $status;
+    public $ownerId;
+    public $workedId;
+    public $userId;
+    public $status;
 
     // Конструктор
-    // Необязательную переменную на всякий случай убрал направо
 
-    public function __construct($status, $ownerId, $workerId = null)
+    public function __construct($status, $userId, $ownerId, $workerId)
     {
         $this->status = $status;
+        $this->userId = $userId;
         $this->ownerId = $ownerId;
         $this->workerId = $workerId;
+        $this->actionStart = new ActionStart($this);
+        $this->actionCancel = new ActionCancel($this);
+        $this->actionAccept = new ActionAccept($this);
+        $this->actionAppeal = new ActionAppeal($this);
+        $this->actionFinish = new ActionFinish($this);
+        $this->actionApply = new ActionApply($this);
+        $this->actionReject = new ActionReject($this);
     }
 
     // Функция возврата статуса
@@ -58,68 +53,92 @@ class Task
         self::STATUS_WORK => "в работе",
         self::STATUS_FAILED => "провалено",
         self::STATUS_DONE => "выполнено",
-        self::ACTION_START => "создать",
-        self::ACTION_CANCEL => "отменить",
-        self::ACTION_ACCEPT => "принять отклик",
-        self::ACTION_APPEAL => "заявить о проблеме",
-        self::ACTION_FINISH => "завершить",
-        self::ACTION_APPLY => "откликнуться",
-        self::ACTION_REJECT => 'отказаться'];
+        $this->actionStart->getActionNick() => $this->actionStart->getActionName(),
+        $this->actionCancel->getActionNick() => $this->actionCancel->getActionName(),
+        $this->actionAccept->getActionNick() => $this->actionAccept->getActionName(),
+        $this->actionAppeal->getActionNick() => $this->actionAppeal->getActionName(),
+        $this->actionFinish->getActionNick() => $this->actionFinish->getActionName(),
+        $this->actionApply->getActionNick() => $this->actionApply->getActionName(),
+        $this->actionReject->getActionNick() => $this->actionReject->getActionName()];
         return $list;
     }
 
     // Правила перехода
 
-    public function getNextStatus($action)
+  public function getNextStatus($action)
     {
         switch ($action)
         {
-            case self::ACTION_START:
+            case $this->actionStart->getActionNick():
                 $nextStatus = self::STATUS_NEW;
                 break;
-            case self::ACTION_CANCEL:
+            case $this->actionCancel->getActionNick():
                 $nextStatus = self::STATUS_CANCEL;
                 break;
-            case self::ACTION_ACCEPT:
+            case $this->actionAccept->getActionNick():
                 $nextStatus = self::STATUS_WORK;
                 break;
-            case self::ACTION_APPEAL:
+            case $this->actionAppeal->getActionNick():
                 $nextStatus = self::STATUS_FAILED;
                 break;
-            case self::ACTION_FINISH:
+            case $this->actionFinish->getActionNick():
                 $nextStatus = self::STATUS_DONE;
                 break;
-            case self::ACTION_APPLY:
+            case $this->actionApply->getActionNick():
                 $nextStatus = self::STATUS_NEW;
                 break;
-            case self::ACTION_REJECT:
+            case $this->actionReject->getActionNick():
                 $nextStatus = self::STATUS_FAILED;
                 break;
         }
         return $nextStatus;
     }
 
-    // Возможные действия в статусе - реализовано массивом
+    // Возможные действия в статусе сообразно роли - реализовано массивом
 
-    public function getActionInStatus()
+  public function getActionInStatus()
     {
-      switch ($this->status)
-      {
-          case self::STATUS_NEW:
-              $actions = [self::ACTION_CANCEL, self::ACTION_APPLY, self::ACTION_ACCEPT];
-              break;
+        switch ($this->status)
+        {
+            case self::STATUS_NEW:
+                $actions = [];
+                if ($this->actionCancel->verifyAccess())
+                {
+                    $actions[] = $this->actionCancel->getActionNick();
+                }
+                if ($this->actionApply->verifyAccess())
+                {
+                    $actions[] = $this->actionApply->getActionNick();
+                }
+                if ($this->actionAccept->verifyAccess())
+                {
+                    $actions[] = $this->actionAccept->getActionNick();
+                }
+                break;
           case self::STATUS_CANCEL:
-              $actions = [];
-              break;
-          case self::STATUS_WORK:
-              $actions = [self::ACTION_FINISH, self::ACTION_APPEAL, self::ACTION_REJECT];
-              break;
-          case self::STATUS_FAILED:
-              $actions = [];
-              break;
-          case self::STATUS_DONE:
-              $actions = [];
-              break;
+                $actions = [];
+                break;
+            case self::STATUS_WORK:
+                $actions = [];
+                if ($this->actionFinish->verifyAccess())
+                {
+                    $actions[] = $this->actionFinish->getActionNick();
+                }
+                if ($this->actionAppeal->verifyAccess())
+                {
+                    $actions[] = $this->actionAppeal->getActionNick();
+                }
+                if ($this->actionReject->verifyAccess())
+                {
+                    $actions[] = $this->actionReject->getActionNick();
+                }
+                break;
+            case self::STATUS_FAILED:
+                $actions = [];
+                break;
+            case self::STATUS_DONE:
+                $actions = [];
+                break;
       }
       return $actions;
     }
