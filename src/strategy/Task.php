@@ -2,8 +2,8 @@
 
 namespace academy\strategy;
 
-use academy\ex\StatusExistException;
-use academy\ex\ActionExistException;
+use academy\exceptions\StatusExistException;
+use academy\exceptions\ActionExistException;
 
 class Task
 {
