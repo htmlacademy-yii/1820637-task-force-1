@@ -31,7 +31,6 @@ class Task
 
     // Конструктор
 
-    // ТИПИЗАЦИЯ НЕ СРАБАТЫВАЕТ
     public function __construct(string $status, int $userId, int $ownerId, ?int $workerId)
     {
         $this->status = $status;
@@ -63,14 +62,14 @@ class Task
 
     // Функция возврата статуса
 
-    public function getStatus(): int // ТИПИЗАЦИЯ НЕ СРАБАТЫВАЕТ
+    public function getStatus(): string
     {
         return $this->status;
     }
 
     //  Возврат карты возможных статусов и действий
 
-      public function getCodesMap(): array // ТИПИЗАЦИЯ НЕ СРАБАТЫВАЕТ
+      public function getCodesMap(): array
     {
         $list = [self::STATUS_NEW => 'новое',
         self::STATUS_CANCEL => "отменено",
@@ -89,7 +88,7 @@ class Task
 
     // Правила перехода
 
-    public function getNextStatus(string $action): string // ТИПИЗАЦИЯ НЕ СРАБАТЫВАЕТ
+    public function getNextStatus(string $action): string
     {
         $allActions =
             [$this->actionStart->getActionNick(),
@@ -142,7 +141,7 @@ class Task
 
     // Возможные действия в статусе сообразно роли - реализовано массивом
 
-  public function getActionInStatus(): array // ТИПИЗАЦИЯ НЕ СРАБАТЫВАЕТ
+  public function getActionInStatus(): array
     {
         switch ($this->status)
         {
