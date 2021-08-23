@@ -2,6 +2,9 @@
 
 namespace academy\strategy;
 
+use academy\exceptions\StatusExistException;
+use academy\exceptions\ActionExistException;
+
 class Task
 {
 
@@ -12,17 +15,23 @@ class Task
     const STATUS_WORK = 'work';
     const STATUS_FAILED = 'failed';
     const STATUS_DONE = 'done';
+    const ALL_STATUSES =
+        [self::STATUS_NEW,
+        self::STATUS_CANCEL,
+        self::STATUS_WORK,
+        self::STATUS_FAILED,
+        self::STATUS_DONE];
 
     // Свойства
 
+    public $status;
+    public $userId;
     public $ownerId;
     public $workedId;
-    public $userId;
-    public $status;
 
     // Конструктор
 
-    public function __construct($status, $userId, $ownerId, $workerId)
+    public function __construct(string $status, int $userId, int $ownerId, ?int $workerId)
     {
         $this->status = $status;
         $this->userId = $userId;
@@ -35,18 +44,32 @@ class Task
         $this->actionFinish = new ActionFinish($this);
         $this->actionApply = new ActionApply($this);
         $this->actionReject = new ActionReject($this);
+
+        try
+        {
+            if (!in_array($this->status, self::ALL_STATUSES))
+            {
+                throw new StatusExistException("Статус $this->status не предусмотрен");
+            }
+        }
+        catch (StatusExistException $e)
+        {
+            echo "StatusExistException: ". $e->getMessage();
+            die();
+        }
+
     }
 
     // Функция возврата статуса
 
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->status;
     }
 
     //  Возврат карты возможных статусов и действий
 
-    public function getCodesMap()
+      public function getCodesMap(): array
     {
         $list = [self::STATUS_NEW => 'новое',
         self::STATUS_CANCEL => "отменено",
@@ -65,8 +88,30 @@ class Task
 
     // Правила перехода
 
-  public function getNextStatus($action)
+    public function getNextStatus(string $action): string
     {
+        $allActions =
+            [$this->actionStart->getActionNick(),
+            $this->actionCancel->getActionNick(),
+            $this->actionAccept->getActionNick(),
+            $this->actionAppeal->getActionNick(),
+            $this->actionFinish->getActionNick(),
+            $this->actionApply->getActionNick(),
+            $this->actionReject->getActionNick()];
+
+        try
+        {
+            if (!in_array($action, $allActions))
+            {
+                throw new ActionExistException("Действие $action не предусмотрено");
+            }
+        }
+        catch (ActionExistException $e)
+        {
+            echo "ActionExistException: ". $e->getMessage();
+            die();
+        }
+
         switch ($action)
         {
             case $this->actionStart->getActionNick():
@@ -96,7 +141,7 @@ class Task
 
     // Возможные действия в статусе сообразно роли - реализовано массивом
 
-  public function getActionInStatus()
+  public function getActionInStatus(): array
     {
         switch ($this->status)
         {
@@ -115,7 +160,7 @@ class Task
                     $actions[] = $this->actionAccept->getActionNick();
                 }
                 break;
-          case self::STATUS_CANCEL:
+            case self::STATUS_CANCEL:
                 $actions = [];
                 break;
             case self::STATUS_WORK:

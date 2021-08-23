@@ -2,9 +2,12 @@
 
 <?php
 
+use academy\exceptions\StatusExistException;
+use academy\exceptions\ActionExistException;
+
 require_once 'vendor/autoload.php';
 
-$case = new academy\strategy\Task ('new', 0, 0, 1); // $status, $userId, $ownerId, $workerId
+$case = new academy\strategy\Task ('new', 0, 1, 0); // $status, $userId, $ownerId, $workerId
 
 // вывод текущего статуса
 echo $case->getStatus()."<br><br>";
