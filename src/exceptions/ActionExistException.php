@@ -1,6 +1,6 @@
 <?php
 
-namespace academy\ex;
+namespace academy\exeptions;
 
 class ActionExistException extends \Exception
 {
