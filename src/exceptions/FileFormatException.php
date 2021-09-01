@@ -1,6 +1,6 @@
 <?php
 
-namespace academy\exeptions;
+namespace academy\exceptions;
 
 class FileFormatException extends \Exception
 {

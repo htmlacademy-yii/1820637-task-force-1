@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace htmlacademy\utils;
+namespace academy\utils;
 
-use htmlacademy\exeptions\SourceFileException;
-use htmlacademy\exeptions\FileFormatException;
+use academy\exceptions\SourceFileException;
+use academy\exceptions\FileFormatException;
 
-class DataLoader
+class DataImporterSpl
 {
     private $filename;
     private $columns;
-    private $fp;
+    private  $fileObject;
 
     private $result = [];
     private $error = null;
@@ -21,10 +21,7 @@ class DataLoader
      * @param $filename
      * @param $columns
      */
-    public function __construct(
-        string $filename, array $columns
-    )
-    {
+    public function __construct(string $filename, array $columns) {
         $this->filename = $filename;
         $this->columns = $columns;
     }
@@ -39,9 +36,10 @@ class DataLoader
             throw new SourceFileException("Файл не существует");
         }
 
-        $this->fp = fopen($this->filename, 'r');
-
-        if (!$this->fp) {
+        try {
+            $this->fileObject = new \SplFileObject($this->filename);
+        }
+        catch (RuntimeException $exception) {
             throw new SourceFileException("Не удалось открыть файл на чтение");
         }
 
@@ -51,7 +49,7 @@ class DataLoader
             throw new FileFormatException("Исходный файл не содержит необходимых столбцов");
         }
 
-        while ($line = $this->getNextLine()) {
+        foreach ($this->getNextLine() as $line) {
             $this->result[] = $line;
         }
     }
@@ -60,18 +58,18 @@ class DataLoader
         return $this->result;
     }
 
-    private function getHeaderData():?array {
-        rewind($this->fp);
-        $data = fgetcsv($this->fp);
+   private function getHeaderData():?array {
+        $this->fileObject->rewind();
+        $data = $this->fileObject->fgetcsv();
 
         return $data;
     }
 
-    private function getNextLine():?array {
+    private function getNextLine():?iterable {
         $result = null;
 
-        if (!feof($this->fp)) {
-            $result = fgetcsv($this->fp);
+        while (!$this->fileObject->eof()) {
+            yield $this->fileObject->fgetcsv();
         }
 
         return $result;
